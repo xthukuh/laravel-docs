@@ -1,0 +1,39 @@
+{
+    "name": "xthukuh/laravel-docs",
+    "description": "A PHP server for laravel github markdown docs.",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Martin Thuku",
+            "email": "xthukuh@gmail.com"
+        }
+    ],
+    "scripts": {
+        "cache-clear": "rm -rf cache",
+        "serve": "@php -S 127.0.0.1:8000"
+    },
+    "scripts-descriptions": {
+        "cache-clear": "Clears the ./cache folder",
+        "serve": "Creates a php web server (php -S -S 127.0.0.1:8000)"
+    },
+    "minimum-stability": "stable",
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "laravel/docs",
+                "version": "dev-master",
+                "source": {
+                    "url": "https://github.com/laravel/docs.git",
+                    "type": "git",
+                    "reference": "origin/master"
+                }
+            }
+        }
+    ],
+    "require": {
+        "michelf/php-markdown": "^1.9",
+        "michelf/php-smartypants": "^1.8",
+        "laravel/docs": "dev-master"
+    }
+}

@@ -1,0 +1,167 @@
+@font-face {
+    font-family: 'Raleway-Light';
+    src: url('./fonts/Raleway-Light.ttf') format('truetype');
+}
+
+html {
+	font-size: 14px;
+	font-family: 'Raleway-Light', sans-serif;
+	padding: 0;
+	margin: 0;
+}
+
+body {
+	padding: 0;
+	margin: 0;
+	background-color: #f7f9fb;
+}
+
+.wrapper {
+	display: flex;
+	flex-direction: column;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	min-height: 500px;
+}
+
+.wrapper.doc {
+	flex-direction: row;
+}
+
+/* small screens */
+@media (max-width: 767.98px){
+	.wrapper {
+		width: calc(100% - 20px);
+		margin: 10px;
+	}
+	.wrapper.doc {
+		flex-direction: column;
+	}
+	.wrapper.doc .list-wrapper {
+		display: none;
+	}
+}
+
+/* large screens */
+@media (min-width: 768px){
+	.wrapper {
+		max-width: 1020px;
+		min-width: 800px;
+		margin: 10px auto;
+	}
+	.wrapper.doc .list-wrapper {
+		background-color: #f9f9f9;
+	}
+	.wrapper.doc .doc-wrapper {
+		min-width: 500px;
+	}
+}
+
+/* links */
+a {
+	text-decoration: none;
+}
+a:focus,
+a:hover {
+	text-decoration: underline;
+}
+
+/* list wrapper */
+.list-wrapper {
+    padding: 20px;
+    min-width: 250px;
+}
+
+.list-wrapper h2 {
+	color: #888;
+}
+
+:is(h1, h2, h3, h4, h5, h6) {
+	margin: 0 0 10px;
+}
+:is(p) {
+	margin: 0 0 5px;
+}
+
+/* listing */
+.listing {
+	display: flex;
+	flex-direction: row;
+	border-top: 1px solid #ddd;
+}
+
+/* list + doc wrapper */
+.wrapper.doc .listing {
+	flex-direction: column;
+}
+
+/* listing - ul */
+.listing ul.list {
+	list-style: disclosure-closed;
+	padding: 10px 0 0 15px;
+	width: 145px;
+	margin: 0;
+}
+.listing ul.list > li {
+	margin-bottom: 5px;
+}
+
+/* search */
+#search-form {
+	margin: 20px 0;
+	display: flex;
+	flex-direction: column;
+}
+#search-form input {
+	border: 1px solid #ddd;
+    padding: 8px 10px;
+    outline: none;
+}
+
+/* doc wrapper */
+.doc-wrapper {
+	flex-grow: 1;
+}
+.wrapper.doc .doc-wrapper {
+	border-left: 1px solid #ddd;
+}
+.nav-wrapper {
+	text-align: right;
+	padding: 10px;
+	background-color: #fafafa;
+}
+
+/* doc content */
+.doc-content {
+	padding: 20px;
+	border-top: 1px solid #ddd;
+}
+
+/* doc content - titles */
+.doc-content h1:not(:first-child),
+.doc-content h2:not(:first-child){
+	border-top: 1px solid #ddd;
+	padding: 10px 0;
+	margin: 30px 0 20px;
+}
+
+.doc-content:is(h3,h4,h5,h6) {
+	margin: 20px 0 10px;
+}
+
+/* doc content - code/pre */
+.doc-content:is(code, pre) {
+	font-family: monospace;
+}
+
+.doc-content code {
+	background-color: #fafafa;
+	padding: 1px 2px;
+}
+
+.doc-content pre {
+    background-color: #fafafa;
+    padding: 10px;
+    width: calc(100% - 20px);
+    overflow-x: auto;
+}
