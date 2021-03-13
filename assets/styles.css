@@ -137,6 +137,11 @@ a:hover {
 	border-top: 1px solid #ddd;
 }
 
+/* doc content - hide markdown */
+.doc-content.markdown {
+	visibility: none;
+}
+
 /* doc content - titles */
 .doc-content h1:not(:first-child),
 .doc-content h2:not(:first-child){
@@ -150,18 +155,19 @@ a:hover {
 }
 
 /* doc content - code/pre */
-.doc-content:is(code, pre) {
+.doc-content :is(code, pre) {
 	font-family: monospace;
+	background-color: #fafafa;
+	font-family: monospace;
+	font-size: 12px;
 }
 
 .doc-content code {
-	background-color: #fafafa;
 	padding: 1px 2px;
 }
 
 .doc-content pre {
-    background-color: #fafafa;
+	display: block;
     padding: 10px;
-    width: calc(100% - 20px);
     overflow-x: auto;
 }

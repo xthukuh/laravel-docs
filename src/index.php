@@ -30,8 +30,8 @@ if (isset($_GET['s'])){
 }
 else $list = array_keys($docs); //add all docs to list (no search)
 
-/** @var string $doc_html Generated documentation file html. */
-$doc_html = null;
+/** @var string $doc_content Documentation file markdown content. */
+$doc_content = null;
 
 /** @var bool $page_code_highlight Enables use of code highlight library */
 $page_code_highlight = 0;
@@ -47,12 +47,8 @@ if ($request_doc){
 	//change page title
 	$page_title = sprintf('%s | Laravel Docs', title($request_doc));
 	
-	//generate request doc html
-	$cache_html = !(isset($_GET['cache']) && $_GET['cache'] == '0');
-	$doc_html = get_doc_html($request_doc, $cache_html, "\t\t");
-
-	//use highlight library
-	$page_code_highlight = 1;
+	//get doc content
+	$doc_content = get_doc_content($request_doc);
 }
 
 /** @var string $list_html Generate list html. */

@@ -1,15 +1,15 @@
 <?php
 /**
 *	Page HTML
-*	Shows documentation listing/contents
+*	Shows documentation listing/contents. Uses shodown js to parse markdown to html.
 *
 */
 
 //import head html
 require_once __DIR__ . '/meta.php';
 
-/** @var string $doc_html Generated documentation file html. */
-$doc_html = isset($doc_html) && ($doc_html = trim($doc_html)) ? $doc_html : '';
+/** @var string $doc_content Documentation file markdown content. */
+$doc_content = isset($doc_content) && ($doc_content = trim($doc_content)) ? $doc_content : '';
 
 /** @var string $list_html Generate list html. */
 $list_html = isset($list_html) && ($list_html = trim($list_html)) ? $list_html : '';
@@ -29,19 +29,18 @@ $list_html = isset($list_html) && ($list_html = trim($list_html)) ? $list_html :
     
     <!-- styles -->
     <link rel="stylesheet" href="./assets/styles.css">
-    
-    <?php if (isset($page_code_highlight) && $page_code_highlight){ ?>
-    <!-- code highlight library -->
-    <link rel="stylesheet" href="./assets/highlight/styles/default.css">
-	<script type="text/javascript" src="./assets/highlight/highlight.pack.js"></script>
-	<?php } ?>
 
+    <?php if ($doc_content){ ?>
+    <!-- showdown markdown-html parser -->
+	<script type="text/javascript" src="./node_modules/showdown/dist/showdown.min.js"></script>
+    <?php } ?>
 </head>
 <body>
-	<div class="<?php echo trim(sprintf('wrapper %s', $doc_html ? 'doc' : '')); ?>">
+	<div class="<?php echo trim(sprintf('wrapper %s', $doc_content ? 'doc' : '')); ?>">
+		
 		<div class="list-wrapper">
 			<!-- title -->
-			<h2>Laravel Markdown Docs In HTML</h2>
+			<h2>Laravel Docs</h2>
 			
 			<!-- search -->
 			<form id="search-form" action="" method="GET">
@@ -56,18 +55,22 @@ $list_html = isset($list_html) && ($list_html = trim($list_html)) ? $list_html :
 			if ($list_html) echo $list_html;
 			?>
 		</div>
-		<?php if ($doc_html){ ?>
+		
+		<?php if ($doc_content){ ?>
 		<!-- doc wrapper -->
 		<div class="doc-wrapper">
 			<div class="nav-wrapper">
 				<a href="./" title="Lising">Home</a>
 			</div>
-			<div class="doc-content">
-				<?php echo $doc_html; ?>
-			</div>
+			<div class="doc-content markdown"><?php echo base64_encode($doc_content); ?></div>
 		</div>
+
+		<!-- parse markdown -->
+		<script type="text/javascript" src="./assets/doc-parser.js"></script>
 		<?php } ?>
+
 	</div>
-	<script>0</script>
+
+	<!-- script -->
 </body>
 </html>

@@ -1,8 +1,4 @@
 <?php
-//use namespaces
-use Michelf\Markdown;
-use Michelf\SmartyPants;
-
 /**
 *	Reads doc file markdown and returns generated html.
 *
@@ -45,69 +41,17 @@ function get_list_html($list){
 }
 
 /**
-*	Reads doc file markdown and returns generated html.
+*	Returns doc file markdown
 *
 *	@param  string $name Doc file name (no ext)
-*	@param  bool $cache_html Whether to use cached/cache generated doc html
-*	@return string Genetated formatted html
+*	@return string Markdown content (trimmed)
 */
-function get_doc_html($name, $cache_html=true){
-	//cached html
-	$cache_path = sprintf('%s/%s.html', LARAVEL_DOCS_CACHE_DIR, $name);
-	if (!$cache_html) file_delete($cache_path);
-	if ($cache_html && is_file($cache_path)){
-		if ($content = file_get_contents($cache_path)){
-			if ($html = trim($content)) return $html;
-		}
-
-		//remove cache on error
-		file_delete($cache_path);
-	}
-
-	//get doc markdown content
+function get_doc_content($name){
 	$path = sprintf('%s/%s.md', LARAVEL_DOCS_DIR, $name);
 	if (!is_file($path)) abort(sprintf('Documentation "%s" not found!', $name), 404);
 	if (!($content = file_get_contents($path))) abort(sprintf('Failed to get file "%s"!', $path));
 	if (!($content = trim($content))) abort(sprintf('Empty markdown content for file "%s"!', $path));
-	
-	//generate doc html
-	$html = Markdown::defaultTransform($content);
-	$html = SmartyPants::defaultTransform($html);
-
-	//cache html
-	if ($cache_html) file_put($cache_path, $html);
-
-	//return html
-	return $html;
-}
-
-/**
-*	Create file with content
-*
-*	@param  string $path
-*	@param  string $content
-*	@return int
-*/
-function file_put($path, $content){
-	$dir = dirname($path);
-	if (!is_dir($dir)){
-		mkdir($dir, 0775, true);
-		if (!is_dir($dir)) abort(sprintf('Failed to create folder "%s"!', $dir));
-	}
-	return file_put_contents($path, $content);
-}
-
-/**
-*	Delete file
-*
-*	@param  string $path
-*	@return void
-*/
-function file_delete($path){
-	if (is_file($path)){
-		unlink($path);
-		if (is_file($path)) abort(sprintf('Failed to delete file "%s"!', $path));
-	}
+	return $content;
 }
 
 /**
@@ -146,7 +90,7 @@ function abort($error, $code=500){
 }
 
 /**
-*	Abort processing and print_r data
+*	Abort processing and print_r data (debugging)
 *
 *	@param  mixed  $data
 *	@return void
